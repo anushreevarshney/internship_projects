@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <!-- <link rel="Stylesheet" href="style.css"> -->
+</head>
+<style>
+    body{
+        margin:0;
+        padding:0;
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 80vh;
+        background-size: cover;
+        background-position: center;
+        background-image: url("temp.png") ;
+        background-repeat: no-repeat;
+    }
+    .display{
+        padding-top: 250px;
+        padding-left: 200px;
+        padding-right:200px;
+        padding-bottom: 0px;
+    }
+    .form{
+        padding: 15px;
+    }
+    .calculator_input{
+        float:left;
+    }
+    .display h1{
+        font-size: 50px;
+        color: 2px solid black;
+    }
+    .temp_inputs{
+        padding: 25px;
+        border-radius:10px;
+        box-shadow: 4px 6px 14px #3d3d3d, -2px -4px 8px #ffffff;
+        background: rgb(186, 170, 170);
+
+    }
+    .input{
+        width: 100%;
+        font-size: 20px;
+        border-radius: 80px;
+        box-shadow: 5px 5px 5px inset rgb(113, 67, 23);
+        border: none;
+        outline:coral;
+        padding: 10px;
+        box-shadow: 4px 6px 14px #806767, -2px -4px 8px #810e0e;
+    }
+    .result_area label{
+       width: 40%;
+       float: left;
+       
+       /* background-color: darkslategray; */
+    }
+    .result_area input{
+        width: 85%;
+        background-color: #9b7a7a;
+    }
+    .calculator_value label{
+        width: 40%;
+        float: left;
+    }
+    .calculator_input{
+        padding: 0px 4px;
+        margin-bottom: 10px;
+    }
+    .calculator_value{
+        margin-bottom: 20px;
+    }
+    button.cal-btn{
+        height: 0%;
+        width: 40%;
+        padding: 20px;
+        border:rgb(244, 4, 52);
+        border-radius: 10px;
+        background: rgb(97, 76, 97);
+        color:honeydew;
+        text-transform: capitalize;
+        font-weight:600;
+        cursor:pointer;
+    }
+    .button convert{
+        float: right;
+    }
+</style>
+<body>
+    <div class="title">
+        <h3 class=" title">TEMPERATURE CONVERTER</h3>
+        <form action="" name="form">
+            <div class="temp_inputs">
+                <div class="calculator_value">
+                    <label for=" ">Value to Convert: </label>
+                    <input type="text" placeholder="0" name="value" id="input_value">
+                     
+                </div>
+                <div class="calculator_input">
+                    <label for="">From:</label>
+                    <select name="input" id=" input">
+                        <option value="celcius">Celcius (C)</option>
+                        <option value="fahrenheit">Fahrenheit (F))</option>
+                        <option value="kelvin">Kelvin (K)</option>
+                    </select>
+                </div>
+                <div class="calculator_input">
+                    <label for=""> To:</label>
+                    <select name="output" id=" output">
+                        <option value="celcius">Celcius (C)</option>
+                        <option value="fahrenheit">Fahrenheit (F)</option>
+                        <option value="kelvin">Kelvin (K)</option>
+                    </select>
+                </div>
+            </div>
+            <button type="button" id="clear" class="cal-btn" onclick="reset()"> Clear</button>
+            <button type="button" id="convert" class="cal-btn" onclick="convertTemp()"> Convert</button>
+            <div class="result_area">
+                <label for="">Answer: </label>
+                <input type="text" id= "result">
+            </div>
+        </form>
+    </div>
+</body>
+                                                                  
+<!-- Javascript code from here -->
+<script>
+    function convertTemp(){
+        let val= document.getElementById("input_value");
+        let result= document.getElementById("result");
+        let input= document.getElementById("input");
+        let output= document.getElementById("output");
+      
+        console.log("val" , val.value);
+        console.log("result", result);
+        console.log("input" , input.value);
+        console.log("output", output.value);
+
+        val.addEventListener("keyup", convertTemp);
+        input.addEventListener("change", convertTemp);
+        output.addEventListener("change", convertTemp);
+
+        let inputValue= input.value;
+        let outputValue= output.value;
+
+    // for celcius
+        if(inputValue=== "celcius" && outputValue=== "fahrenheit"){
+            result.value= Number((val.value)*9/5)+32;
+        }
+        else if(inputValue==="celcius" && outputValue=== "kelvin"){
+            result.value= Number(val.value)+273.15;
+        }
+        else if(inputValue==="celcius" && outputValue==="celcius"){
+            result.value = val.value;
+        }
+
+    //   for fahrenheit   
+        if(inputValue=== "fahrenheit" && outputValue=== "celcius"){
+            result.value= Number((val.value-32)*5)/9;
+        }
+        else if(inputValue==="fahrenheit" && outputValue=== "kelvin"){
+            result.value= Number((val.value-32)*5/9)+273.15;
+        }
+        else if(inputValue==="fahrenheit" && outputValue==="fahrenheit"){
+            result.value= val.value;
+        }
+
+    // for kelvin
+        if(inputValue=== "kelvin" && outputValue=== "celcius"){
+            result.value= Number(val.value)-273.15;
+        }
+        else if(inputValue=== "kelvin" && outputValue=== "fahrenheit"){
+            result.value=Number((val.value-273.15)*9/5)+32;
+        }
+        else if(inputValue=== "kelvin" && outputValue=== "kelvin"){
+            result.value= val.value;
+        }
+        else{
+               //console.log("cel to far");
+        }
+    }
+    function reset(){
+        convertTemp( );
+    }
+</script>
+
+</html>
